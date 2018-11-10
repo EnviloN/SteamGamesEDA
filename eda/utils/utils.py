@@ -1,5 +1,8 @@
 import numpy as np
 import pandas as pd
+import datetime as dt
+
+months = set(['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
 
 def delete_duplicates(df):
     '''Function filters out duplicate games from the dataset.'''
@@ -32,3 +35,28 @@ def valid_coef(df, i):
     # Only this columns should be affected
     columns = ['SteamSpyOwners', 'SteamSpyOwnersVariance', 'SteamSpyPlayersEstimate', 'SteamSpyPlayersVariance']
     return df.iloc[i][columns].sum() # sum up the values
+
+def supports_english(row):
+    '''Function estimates if a game supports English language.'''
+    if 'English' in row['SupportedLanguages']:
+        return True
+    else:
+        return False
+
+def count_languages(row,languages):
+    '''Function counts all supported languages.'''
+    cnt = 0
+    for lang in languages:
+        if lang in row['SupportedLanguages']:
+            cnt += 1
+    return cnt
+
+def find_invalid_dates(df, format_str):
+    '''Function picks up any invalid values in the ReleaseDate column.'''
+    invalid = set()
+    for date_str in df.ReleaseDate:
+        try:
+            dt.datetime.strptime(date_str, format_str)
+        except ValueError:
+            invalid.add(date_str)
+    return invalid
