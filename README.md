@@ -1,4 +1,4 @@
-# Data science final project:<br>Steam Games Exploratory data analysis
+# Data science project:<br>Steam Games Exploratory data analysis
 
 This project started as a final assignment for Data science course at Milwaukee School of Engineering. You can read the full project assignment in 'eda/Project description.pdf'. At the end of the course, I continued working on this data analysis.
 
