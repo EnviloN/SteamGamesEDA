@@ -3,6 +3,9 @@ import pandas as pd
 import datetime as dt
 
 months = set(['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
+format_strings = ["%b %Y", "%dth %B %Y", "%dst %B %Y", "%B %d %Y", "%x", "%m-%Y", "%m - %Y", "%d %B %Y", \
+                  "%b - %Y", "%B - %Y", "%B %Y", "%B %dth %Y", "%b %dth %Y", "%dth of %B %Y", "%d.%m.%Y", \
+                  "%Y %b", "%Y-%d-%m"]
 
 def delete_duplicates(df):
     '''Function filters out duplicate games from the dataset.'''
@@ -119,11 +122,7 @@ def manual_dt_approx(date_str):
     return date_str
 
 def replace_datetime(date_str, format_str):
-    '''Function tries to apply one of known format strings to the date and change its format accordingly.'''
-    format_strings = ["%b %Y", "%dth %B %Y", "%dst %B %Y", "%B %d %Y", "%x", "%m-%Y", "%m - %Y", "%d %B %Y", \
-                     "%b - %Y", "%B - %Y", "%B %Y", "%B %dth %Y", "%b %dth %Y", "%dth of %B %Y", "%d.%m.%Y", \
-                     "%Y %b", "%Y-%d-%m"]
-    
+    '''Function tries to apply one of known format strings to the date and change its format accordingly.'''    
     date_str = manual_dt_approx(date_str)
     original = date_str
     
@@ -143,3 +142,15 @@ def fix_invalid_date(date_str, format_str):
     except ValueError:
         fixed = replace_datetime(date_str, format_str)
     return fixed
+
+def pprint_duration(d):
+    '''Function takes a datetime duration and creates a readable string.'''
+    tmp = divmod(d.total_seconds(),3600)
+    hours = int(tmp[0])
+    tmp = divmod(tmp[1],60)
+    minutes = int(tmp[0])
+    seconds = int(tmp[1])
+    if (hours == 0):
+        return "{}m {}s".format(minutes,seconds)
+    else:
+        return "{}h {}m {}s".format(hours,minutes,seconds)

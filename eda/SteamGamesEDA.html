@@ -12628,11 +12628,7 @@ div#notebook {
 <li><strong>Hypothesis 2:</strong> Each year the number of games with VR support being released increases.</li>
 </ul>
 </li>
-<li><strong>Examine game rating averages in time. [TODO]</strong><ul>
-<li><strong>Hypothesis 3:</strong> Overall rating averages are decreasing over time.</li>
-</ul>
-</li>
-<li><strong>What features contribute to number of owners and can we predict it? [TODO]</strong></li>
+<li><strong>What features contribute to number of owners and can we predict it?</strong></li>
 </ul>
 <p>Besides these questions, we will also try to take as many observations as we can to understand this data better.</p>
 
@@ -12748,7 +12744,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[238]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> <span class="c1"># powerful data structures for data analysis</span>
@@ -12757,6 +12753,14 @@ div#notebook {
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> <span class="c1"># a numerical plotting library</span>
 <span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span> <span class="c1"># date and time manipulation module</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span> <span class="c1"># statistical data visualization</span>
+
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">metrics</span> <span class="c1"># metrics for evaluating</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span> <span class="c1"># splitting dataset into train and test portions</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">MinMaxScaler</span> <span class="c1"># scaling numeric values</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">LabelEncoder</span> <span class="c1"># scaling categorical values</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow</span> <span class="k">import</span> <span class="n">keras</span>
 
 <span class="c1"># plots within notebook versus launching a separate window</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -18166,7 +18170,7 @@ Name: SteamSpyOwnersVariance, dtype: float64</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb1dc13a908&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fe42bf23710&gt;</pre>
 </div>
 
 </div>
@@ -18974,656 +18978,656 @@ Name: LanguageCount, dtype: float64</pre>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <style  type="text/css" >
-    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col0 {
+    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col0 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col1 {
             background-color:  #ddfbdd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col2 {
             background-color:  #d9f8d9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col3 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col4 {
             background-color:  #b8e6b8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col5 {
             background-color:  #cff3cf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col6 {
             background-color:  #c7eec7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col7 {
             background-color:  #d5f6d5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col8 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col9 {
             background-color:  #d9f8d9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col10 {
             background-color:  #d2f4d2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col11 {
             background-color:  #b4e4b4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col12 {
             background-color:  #d5f6d5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col13 {
             background-color:  #b4e4b4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col14 {
             background-color:  #dcfadc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col15 {
             background-color:  #c7eec7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col16 {
             background-color:  #c2ecc2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col17 {
             background-color:  #d6f7d6;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col0 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col1 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col2 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col3 {
             background-color:  #e1fde1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col4 {
             background-color:  #c8efc8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col5 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col6 {
             background-color:  #caf0ca;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col7 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col8 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col9 {
             background-color:  #dbf9db;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col10 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col11 {
             background-color:  #e3fee3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col12 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col13 {
             background-color:  #e3fee3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col14 {
             background-color:  #dcfadc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col15 {
             background-color:  #e0fce0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col16 {
             background-color:  #e2fde2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col17 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col0 {
             background-color:  #e2fde2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col1 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col2 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col3 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col4 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col5 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col6 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col7 {
             background-color:  #e4fee4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col8 {
             background-color:  #c0eac0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col9 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col10 {
             background-color:  #e4fee4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col11 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col12 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col13 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col14 {
             background-color:  #e4fee4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col15 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col16 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col17 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col0 {
             background-color:  #e2fde2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col1 {
             background-color:  #dcfadc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col2 {
             background-color:  #e0fce0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col3 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col4 {
             background-color:  #ddfbdd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col5 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col6 {
             background-color:  #c8efc8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col7 {
             background-color:  #dffcdf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col8 {
             background-color:  #e4fee4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col9 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col10 {
             background-color:  #dffcdf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col11 {
             background-color:  #d9f8d9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col12 {
             background-color:  #dffcdf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col13 {
             background-color:  #d5f6d5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col14 {
             background-color:  #c5edc5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col15 {
             background-color:  #d4f6d4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col16 {
             background-color:  #d3f5d3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col17 {
             background-color:  #e3fee3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col0 {
             background-color:  #b9e7b9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col1 {
             background-color:  #c2ebc2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col2 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col3 {
             background-color:  #dcfadc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col4 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col5 {
             background-color:  #c6eec6;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col6 {
             background-color:  #9bd69b;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col7 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col8 {
             background-color:  #d5f6d5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col9 {
             background-color:  #c6eec6;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col10 {
             background-color:  #bee9be;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col11 {
             background-color:  #88cb88;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col12 {
             background-color:  #c5edc5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col13 {
             background-color:  #8acc8a;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col14 {
             background-color:  #c7eec7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col15 {
             background-color:  #acdfac;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col16 {
             background-color:  #abdfab;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col17 {
             background-color:  #b8e6b8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col0 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col1 {
             background-color:  #dbf9db;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col2 {
             background-color:  #dbf9db;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col3 {
             background-color:  #d8f8d8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col4 {
             background-color:  #c2ecc2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col5 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col6 {
             background-color:  #d3f5d3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col7 {
             background-color:  #c5edc5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col8 {
             background-color:  #daf9da;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col9 {
             background-color:  #a5dba5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col10 {
             background-color:  #c6eec6;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col11 {
             background-color:  #bde9bd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col12 {
             background-color:  #c6eec6;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col13 {
             background-color:  #b4e4b4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col14 {
             background-color:  #c0eac0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col15 {
             background-color:  #b7e5b7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col16 {
             background-color:  #b4e4b4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col17 {
             background-color:  #c7eec7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col0 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col1 {
             background-color:  #caf0ca;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col2 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col3 {
             background-color:  #cbf1cb;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col4 {
             background-color:  #9ed89e;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col5 {
             background-color:  #dcfadc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col6 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col7 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col8 {
             background-color:  #c8efc8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col9 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col10 {
             background-color:  #ddfbdd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col11 {
             background-color:  #bee9be;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col12 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col13 {
             background-color:  #bde9bd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col14 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col15 {
             background-color:  #9cd69c;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col16 {
             background-color:  #9ed89e;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col17 {
             background-color:  #ccf1cc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col0 {
             background-color:  #daf9da;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col1 {
             background-color:  #e2fde2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col2 {
             background-color:  #e0fce0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col3 {
             background-color:  #dffcdf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col4 {
             background-color:  #d0f3d0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col5 {
             background-color:  #cbf1cb;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col6 {
             background-color:  #dbf9db;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col7 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col8 {
             background-color:  #e2fde2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col9 {
             background-color:  #daf9da;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col10 {
             background-color:  #52ad52;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col11 {
             background-color:  #88cb88;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col12 {
             background-color:  #4aa94a;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col13 {
             background-color:  #77c277;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col14 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col15 {
             background-color:  #e2fde2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col16 {
             background-color:  #e1fde1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col17 {
             background-color:  #ccf1cc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col0 {
             background-color:  #e4fee4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col1 {
             background-color:  #e3fee3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col2 {
             background-color:  #bde9bd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col3 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col4 {
             background-color:  #daf9da;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col5 {
             background-color:  #e3fee3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col6 {
             background-color:  #c6eec6;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col7 {
             background-color:  #e4fee4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col8 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col9 {
             background-color:  #dcfadc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col10 {
             background-color:  #e2fde2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col11 {
             background-color:  #ddfbdd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col12 {
             background-color:  #e3fee3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col13 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col14 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col15 {
             background-color:  #dcfadc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col16 {
             background-color:  #dcfadc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col17 {
             background-color:  #e3fee3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col0 {
             background-color:  #dcfadc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col1 {
             background-color:  #d6f7d6;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col2 {
             background-color:  #e1fde1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col3 {
             background-color:  #dffcdf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col4 {
             background-color:  #c9efc9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col5 {
             background-color:  #aadeaa;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col6 {
             background-color:  #caf0ca;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col7 {
             background-color:  #daf9da;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col8 {
             background-color:  #dbf9db;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col9 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col10 {
             background-color:  #daf9da;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col11 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col12 {
             background-color:  #daf9da;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col13 {
             background-color:  #caf0ca;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col14 {
             background-color:  #c3ecc3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col15 {
             background-color:  #c2ecc2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col16 {
             background-color:  #c1ebc1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col17 {
             background-color:  #e1fde1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col0 {
             background-color:  #d3f5d3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col1 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col2 {
             background-color:  #dcfadc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col3 {
             background-color:  #ddfbdd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col4 {
             background-color:  #bee9be;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col5 {
             background-color:  #caf0ca;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col6 {
             background-color:  #d8f8d8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col7 {
             background-color:  #51ad51;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col8 {
             background-color:  #ddfbdd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col9 {
             background-color:  #d7f7d7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col10 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col11 {
             background-color:  #45a645;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col12 {
             background-color:  #078407;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col13 {
             background-color:  #3fa33f;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col14 {
             background-color:  #cbf1cb;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col15 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col16 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col17 {
             background-color:  #c4edc4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col0 {
             background-color:  #afe1af;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col1 {
             background-color:  #d3f5d3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col2 {
             background-color:  #d6f7d6;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col3 {
             background-color:  #cff3cf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col4 {
             background-color:  #82c882;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col5 {
             background-color:  #b9e7b9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col6 {
             background-color:  #b2e3b2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col7 {
             background-color:  #81c781;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col8 {
             background-color:  #d1f4d1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col9 {
             background-color:  #c3ecc3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col10 {
             background-color:  #43a543;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col11 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col12 {
             background-color:  #5db35d;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col13 {
             background-color:  #078407;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col14 {
             background-color:  #b8e6b8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col15 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col16 {
             background-color:  #cef2ce;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col17 {
             background-color:  #acdfac;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col0 {
             background-color:  #d8f8d8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col1 {
             background-color:  #dffcdf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col2 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col3 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col4 {
             background-color:  #c5edc5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col5 {
             background-color:  #caf0ca;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col6 {
             background-color:  #daf9da;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col7 {
             background-color:  #4aa94a;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col8 {
             background-color:  #dffcdf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col9 {
             background-color:  #d9f8d9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col10 {
             background-color:  #078407;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col11 {
             background-color:  #61b661;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col12 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col13 {
             background-color:  #50ac50;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col14 {
             background-color:  #ccf1cc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col15 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col16 {
             background-color:  #e5ffe5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col17 {
             background-color:  #c8efc8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col0 {
             background-color:  #afe1af;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col1 {
             background-color:  #d3f5d3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col2 {
             background-color:  #d6f7d6;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col3 {
             background-color:  #cbf1cb;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col4 {
             background-color:  #84c984;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col5 {
             background-color:  #b0e2b0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col6 {
             background-color:  #b1e2b1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col7 {
             background-color:  #70be70;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col8 {
             background-color:  #d3f5d3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col9 {
             background-color:  #c1ebc1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col10 {
             background-color:  #3da23d;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col11 {
             background-color:  #078407;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col12 {
             background-color:  #4dab4d;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col13 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col14 {
             background-color:  #b2e3b2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col15 {
             background-color:  #c5edc5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col16 {
             background-color:  #c4edc4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col17 {
             background-color:  #a7dda7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col0 {
             background-color:  #dffcdf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col1 {
             background-color:  #d7f7d7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col2 {
             background-color:  #defbde;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col3 {
             background-color:  #c4edc4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col4 {
             background-color:  #c8efc8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col5 {
             background-color:  #c4edc4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col6 {
             background-color:  #c9efc9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col7 {
             background-color:  #cbf1cb;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col8 {
             background-color:  #e3fee3;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col9 {
             background-color:  #c2ecc2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col10 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col11 {
             background-color:  #c1ebc1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col12 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col13 {
             background-color:  #bae7ba;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col14 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col15 {
             background-color:  #cef2ce;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col16 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col17 {
             background-color:  #d0f3d0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col0 {
             background-color:  #c4edc4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col1 {
             background-color:  #d4f6d4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col2 {
             background-color:  #daf9da;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col3 {
             background-color:  #cff3cf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col4 {
             background-color:  #a9dea9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col5 {
             background-color:  #b7e5b7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col6 {
             background-color:  #94d294;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col7 {
             background-color:  #dbf9db;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col8 {
             background-color:  #d4f6d4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col9 {
             background-color:  #bce8bc;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col10 {
             background-color:  #e1fde1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col11 {
             background-color:  #d1f4d1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col12 {
             background-color:  #e0fce0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col13 {
             background-color:  #caf0ca;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col14 {
             background-color:  #c9efc9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col15 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col16 {
             background-color:  #168c16;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col17 {
             background-color:  #c2ebc2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col0 {
             background-color:  #c0eac0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col1 {
             background-color:  #d7f7d7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col2 {
             background-color:  #dbf9db;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col3 {
             background-color:  #cdf2cd;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col4 {
             background-color:  #a7dda7;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col5 {
             background-color:  #b4e4b4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col6 {
             background-color:  #97d497;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col7 {
             background-color:  #daf9da;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col8 {
             background-color:  #d4f6d4;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col9 {
             background-color:  #bbe8bb;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col10 {
             background-color:  #e1fde1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col11 {
             background-color:  #d2f4d2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col12 {
             background-color:  #dffcdf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col13 {
             background-color:  #c8efc8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col14 {
             background-color:  #c8efc8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col15 {
             background-color:  #168c16;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col16 {
             background-color:  #008000;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col17 {
             background-color:  #c1ebc1;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col0 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col0 {
             background-color:  #d2f4d2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col1 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col1 {
             background-color:  #d9f8d9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col2 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col2 {
             background-color:  #d8f8d8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col3 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col3 {
             background-color:  #dbf9db;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col4 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col4 {
             background-color:  #b2e3b2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col5 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col5 {
             background-color:  #c5edc5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col6 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col6 {
             background-color:  #c2ebc2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col7 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col7 {
             background-color:  #c5edc5;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col8 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col8 {
             background-color:  #d8f8d8;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col9 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col9 {
             background-color:  #d9f8d9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col10 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col10 {
             background-color:  #bfeabf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col11 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col11 {
             background-color:  #aee0ae;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col12 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col12 {
             background-color:  #c2ebc2;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col13 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col13 {
             background-color:  #a9dea9;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col14 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col14 {
             background-color:  #caf0ca;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col15 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col15 {
             background-color:  #c0eac0;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col16 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col16 {
             background-color:  #bfeabf;
-        }    #T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col17 {
+        }    #T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col17 {
             background-color:  #008000;
         }</style>  
-<table id="T_c78d7672_1dc8_11e9_974c_f8633f500dbb" > 
+<table id="T_4abef218_1ece_11e9_974c_f8633f500dbb" > 
 <thead>    <tr> 
         <th class="blank level0" ></th> 
         <th class="col_heading level0 col0" >RequiredAge</th> 
@@ -19646,365 +19650,365 @@ Name: LanguageCount, dtype: float64</pre>
         <th class="col_heading level0 col17" >LanguageCount</th> 
     </tr></thead> 
 <tbody>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row0" class="row_heading level0 row0" >RequiredAge</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col0" class="data row0 col0" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col1" class="data row0 col1" >0.023671</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col2" class="data row0 col2" >0.0408541</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col3" class="data row0 col3" >0.0395988</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col4" class="data row0 col4" >0.213827</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col5" class="data row0 col5" >0.130213</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col6" class="data row0 col6" >0.127563</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col7" class="data row0 col7" >0.0755142</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col8" class="data row0 col8" >0.0318085</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col9" class="data row0 col9" >0.0631031</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col10" class="data row0 col10" >0.104553</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col11" class="data row0 col11" >0.259496</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col12" class="data row0 col12" >0.0834184</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col13" class="data row0 col13" >0.258656</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col14" class="data row0 col14" >0.0524574</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col15" class="data row0 col15" >0.164853</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col16" class="data row0 col16" >0.184207</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow0_col17" class="data row0 col17" >0.108778</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row0" class="row_heading level0 row0" >RequiredAge</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col0" class="data row0 col0" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col1" class="data row0 col1" >0.023671</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col2" class="data row0 col2" >0.0408541</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col3" class="data row0 col3" >0.0395988</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col4" class="data row0 col4" >0.213827</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col5" class="data row0 col5" >0.130213</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col6" class="data row0 col6" >0.127563</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col7" class="data row0 col7" >0.0755142</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col8" class="data row0 col8" >0.0318085</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col9" class="data row0 col9" >0.0631031</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col10" class="data row0 col10" >0.104553</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col11" class="data row0 col11" >0.259496</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col12" class="data row0 col12" >0.0834184</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col13" class="data row0 col13" >0.258656</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col14" class="data row0 col14" >0.0524574</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col15" class="data row0 col15" >0.164853</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col16" class="data row0 col16" >0.184207</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow0_col17" class="data row0 col17" >0.108778</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row1" class="row_heading level0 row1" >DemoCount</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col0" class="data row1 col0" >0.023671</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col1" class="data row1 col1" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col2" class="data row1 col2" >-0.0149992</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col3" class="data row1 col3" >0.0311936</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col4" class="data row1 col4" >0.147413</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col5" class="data row1 col5" >0.0362413</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col6" class="data row1 col6" >0.111707</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col7" class="data row1 col7" >0.00463256</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col8" class="data row1 col8" >-0.00199187</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col9" class="data row1 col9" >0.055558</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col10" class="data row1 col10" >0.0167288</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col11" class="data row1 col11" >0.0684636</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col12" class="data row1 col12" >0.0130372</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col13" class="data row1 col13" >0.0671586</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col14" class="data row1 col14" >0.0510354</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col15" class="data row1 col15" >0.0610106</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col16" class="data row1 col16" >0.0520091</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow1_col17" class="data row1 col17" >0.0435695</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row1" class="row_heading level0 row1" >DemoCount</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col0" class="data row1 col0" >0.023671</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col1" class="data row1 col1" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col2" class="data row1 col2" >-0.0149992</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col3" class="data row1 col3" >0.0311936</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col4" class="data row1 col4" >0.147413</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col5" class="data row1 col5" >0.0362413</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col6" class="data row1 col6" >0.111707</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col7" class="data row1 col7" >0.00463256</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col8" class="data row1 col8" >-0.00199187</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col9" class="data row1 col9" >0.055558</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col10" class="data row1 col10" >0.0167288</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col11" class="data row1 col11" >0.0684636</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col12" class="data row1 col12" >0.0130372</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col13" class="data row1 col13" >0.0671586</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col14" class="data row1 col14" >0.0510354</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col15" class="data row1 col15" >0.0610106</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col16" class="data row1 col16" >0.0520091</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow1_col17" class="data row1 col17" >0.0435695</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row2" class="row_heading level0 row2" >DeveloperCount</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col0" class="data row2 col0" >0.0408541</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col1" class="data row2 col1" >-0.0149992</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col2" class="data row2 col2" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col3" class="data row2 col3" >0.0120539</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col4" class="data row2 col4" >0.016933</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col5" class="data row2 col5" >0.0353674</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col6" class="data row2 col6" >-0.00828785</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col7" class="data row2 col7" >0.0124272</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col8" class="data row2 col8" >0.164304</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col9" class="data row2 col9" >0.0060274</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col10" class="data row2 col10" >0.0262638</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col11" class="data row2 col11" >0.0545363</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col12" class="data row2 col12" >0.0184623</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col13" class="data row2 col13" >0.0537144</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col14" class="data row2 col14" >0.0204087</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col15" class="data row2 col15" >0.0380897</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col16" class="data row2 col16" >0.0364022</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow2_col17" class="data row2 col17" >0.0459097</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row2" class="row_heading level0 row2" >DeveloperCount</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col0" class="data row2 col0" >0.0408541</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col1" class="data row2 col1" >-0.0149992</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col2" class="data row2 col2" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col3" class="data row2 col3" >0.0120539</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col4" class="data row2 col4" >0.016933</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col5" class="data row2 col5" >0.0353674</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col6" class="data row2 col6" >-0.00828785</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col7" class="data row2 col7" >0.0124272</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col8" class="data row2 col8" >0.164304</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col9" class="data row2 col9" >0.0060274</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col10" class="data row2 col10" >0.0262638</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col11" class="data row2 col11" >0.0545363</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col12" class="data row2 col12" >0.0184623</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col13" class="data row2 col13" >0.0537144</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col14" class="data row2 col14" >0.0204087</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col15" class="data row2 col15" >0.0380897</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col16" class="data row2 col16" >0.0364022</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow2_col17" class="data row2 col17" >0.0459097</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row3" class="row_heading level0 row3" >DLCCount</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col0" class="data row3 col0" >0.0395988</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col1" class="data row3 col1" >0.0311936</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col2" class="data row3 col2" >0.0120539</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col3" class="data row3 col3" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col4" class="data row3 col4" >0.053423</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col5" class="data row3 col5" >0.0692097</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col6" class="data row3 col6" >0.122183</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col7" class="data row3 col7" >0.0356947</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col8" class="data row3 col8" >0.00847535</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col9" class="data row3 col9" >0.0373434</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col10" class="data row3 col10" >0.0438705</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col11" class="data row3 col11" >0.106612</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col12" class="data row3 col12" >0.0407361</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col13" class="data row3 col13" >0.121087</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col14" class="data row3 col14" >0.152179</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col15" class="data row3 col15" >0.108797</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col16" class="data row3 col16" >0.114377</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow3_col17" class="data row3 col17" >0.0552424</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row3" class="row_heading level0 row3" >DLCCount</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col0" class="data row3 col0" >0.0395988</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col1" class="data row3 col1" >0.0311936</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col2" class="data row3 col2" >0.0120539</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col3" class="data row3 col3" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col4" class="data row3 col4" >0.053423</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col5" class="data row3 col5" >0.0692097</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col6" class="data row3 col6" >0.122183</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col7" class="data row3 col7" >0.0356947</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col8" class="data row3 col8" >0.00847535</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col9" class="data row3 col9" >0.0373434</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col10" class="data row3 col10" >0.0438705</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col11" class="data row3 col11" >0.106612</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col12" class="data row3 col12" >0.0407361</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col13" class="data row3 col13" >0.121087</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col14" class="data row3 col14" >0.152179</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col15" class="data row3 col15" >0.108797</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col16" class="data row3 col16" >0.114377</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow3_col17" class="data row3 col17" >0.0552424</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row4" class="row_heading level0 row4" >Metacritic</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col0" class="data row4 col0" >0.213827</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col1" class="data row4 col1" >0.147413</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col2" class="data row4 col2" >0.016933</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col3" class="data row4 col3" >0.053423</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col4" class="data row4 col4" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col5" class="data row4 col5" >0.170435</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col6" class="data row4 col6" >0.321705</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col7" class="data row4 col7" >0.112637</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col8" class="data row4 col8" >0.0690527</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col9" class="data row4 col9" >0.142422</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col10" class="data row4 col10" >0.188182</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col11" class="data row4 col11" >0.441112</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col12" class="data row4 col12" >0.155461</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col13" class="data row4 col13" >0.434385</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col14" class="data row4 col14" >0.14417</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col15" class="data row4 col15" >0.27731</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col16" class="data row4 col16" >0.283269</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow4_col17" class="data row4 col17" >0.235905</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row4" class="row_heading level0 row4" >Metacritic</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col0" class="data row4 col0" >0.213827</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col1" class="data row4 col1" >0.147413</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col2" class="data row4 col2" >0.016933</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col3" class="data row4 col3" >0.053423</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col4" class="data row4 col4" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col5" class="data row4 col5" >0.170435</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col6" class="data row4 col6" >0.321705</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col7" class="data row4 col7" >0.112637</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col8" class="data row4 col8" >0.0690527</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col9" class="data row4 col9" >0.142422</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col10" class="data row4 col10" >0.188182</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col11" class="data row4 col11" >0.441112</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col12" class="data row4 col12" >0.155461</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col13" class="data row4 col13" >0.434385</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col14" class="data row4 col14" >0.14417</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col15" class="data row4 col15" >0.27731</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col16" class="data row4 col16" >0.283269</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow4_col17" class="data row4 col17" >0.235905</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row5" class="row_heading level0 row5" >StoreVideoCount</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col0" class="data row5 col0" >0.130213</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col1" class="data row5 col1" >0.0362413</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col2" class="data row5 col2" >0.0353674</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col3" class="data row5 col3" >0.0692097</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col4" class="data row5 col4" >0.170435</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col5" class="data row5 col5" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col6" class="data row5 col6" >0.0782059</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col7" class="data row5 col7" >0.146103</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col8" class="data row5 col8" >0.0503055</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col9" class="data row5 col9" >0.285919</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col10" class="data row5 col10" >0.151459</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col11" class="data row5 col11" >0.22075</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col12" class="data row5 col12" >0.151787</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col13" class="data row5 col13" >0.257842</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col14" class="data row5 col14" >0.1775</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col15" class="data row5 col15" >0.2325</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col16" class="data row5 col16" >0.246149</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow5_col17" class="data row5 col17" >0.173557</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row5" class="row_heading level0 row5" >StoreVideoCount</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col0" class="data row5 col0" >0.130213</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col1" class="data row5 col1" >0.0362413</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col2" class="data row5 col2" >0.0353674</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col3" class="data row5 col3" >0.0692097</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col4" class="data row5 col4" >0.170435</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col5" class="data row5 col5" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col6" class="data row5 col6" >0.0782059</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col7" class="data row5 col7" >0.146103</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col8" class="data row5 col8" >0.0503055</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col9" class="data row5 col9" >0.285919</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col10" class="data row5 col10" >0.151459</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col11" class="data row5 col11" >0.22075</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col12" class="data row5 col12" >0.151787</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col13" class="data row5 col13" >0.257842</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col14" class="data row5 col14" >0.1775</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col15" class="data row5 col15" >0.2325</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col16" class="data row5 col16" >0.246149</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow5_col17" class="data row5 col17" >0.173557</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row6" class="row_heading level0 row6" >BundleCount</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col0" class="data row6 col0" >0.127563</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col1" class="data row6 col1" >0.111707</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col2" class="data row6 col2" >-0.00828785</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col3" class="data row6 col3" >0.122183</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col4" class="data row6 col4" >0.321705</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col5" class="data row6 col5" >0.0782059</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col6" class="data row6 col6" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col7" class="data row6 col7" >0.0390518</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col8" class="data row6 col8" >0.130975</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col9" class="data row6 col9" >0.113072</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col10" class="data row6 col10" >0.0543458</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col11" class="data row6 col11" >0.217898</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col12" class="data row6 col12" >0.046126</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col13" class="data row6 col13" >0.221053</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col14" class="data row6 col14" >0.117824</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col15" class="data row6 col15" >0.346655</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col16" class="data row6 col16" >0.335088</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow6_col17" class="data row6 col17" >0.149552</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row6" class="row_heading level0 row6" >BundleCount</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col0" class="data row6 col0" >0.127563</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col1" class="data row6 col1" >0.111707</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col2" class="data row6 col2" >-0.00828785</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col3" class="data row6 col3" >0.122183</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col4" class="data row6 col4" >0.321705</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col5" class="data row6 col5" >0.0782059</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col6" class="data row6 col6" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col7" class="data row6 col7" >0.0390518</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col8" class="data row6 col8" >0.130975</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col9" class="data row6 col9" >0.113072</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col10" class="data row6 col10" >0.0543458</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col11" class="data row6 col11" >0.217898</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col12" class="data row6 col12" >0.046126</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col13" class="data row6 col13" >0.221053</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col14" class="data row6 col14" >0.117824</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col15" class="data row6 col15" >0.346655</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col16" class="data row6 col16" >0.335088</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow6_col17" class="data row6 col17" >0.149552</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row7" class="row_heading level0 row7" >RecommendationCount</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col0" class="data row7 col0" >0.0755142</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col1" class="data row7 col1" >0.00463256</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col2" class="data row7 col2" >0.0124272</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col3" class="data row7 col3" >0.0356947</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col4" class="data row7 col4" >0.112637</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col5" class="data row7 col5" >0.146103</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col6" class="data row7 col6" >0.0390518</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col7" class="data row7 col7" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col8" class="data row7 col8" >0.0152406</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col9" class="data row7 col9" >0.057084</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col10" class="data row7 col10" >0.647955</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col11" class="data row7 col11" >0.441921</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col12" class="data row7 col12" >0.680281</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col13" class="data row7 col13" >0.510277</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col14" class="data row7 col14" >0.118526</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col15" class="data row7 col15" >0.0523879</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col16" class="data row7 col16" >0.05821</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow7_col17" class="data row7 col17" >0.148389</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row7" class="row_heading level0 row7" >RecommendationCount</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col0" class="data row7 col0" >0.0755142</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col1" class="data row7 col1" >0.00463256</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col2" class="data row7 col2" >0.0124272</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col3" class="data row7 col3" >0.0356947</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col4" class="data row7 col4" >0.112637</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col5" class="data row7 col5" >0.146103</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col6" class="data row7 col6" >0.0390518</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col7" class="data row7 col7" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col8" class="data row7 col8" >0.0152406</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col9" class="data row7 col9" >0.057084</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col10" class="data row7 col10" >0.647955</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col11" class="data row7 col11" >0.441921</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col12" class="data row7 col12" >0.680281</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col13" class="data row7 col13" >0.510277</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col14" class="data row7 col14" >0.118526</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col15" class="data row7 col15" >0.0523879</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col16" class="data row7 col16" >0.05821</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow7_col17" class="data row7 col17" >0.148389</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row8" class="row_heading level0 row8" >PublisherCount</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col0" class="data row8 col0" >0.0318085</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col1" class="data row8 col1" >-0.00199187</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col2" class="data row8 col2" >0.164304</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col3" class="data row8 col3" >0.00847535</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col4" class="data row8 col4" >0.0690527</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col5" class="data row8 col5" >0.0503055</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col6" class="data row8 col6" >0.130975</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col7" class="data row8 col7" >0.0152406</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col8" class="data row8 col8" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col9" class="data row8 col9" >0.0466705</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col10" class="data row8 col10" >0.0349308</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col11" class="data row8 col11" >0.0901259</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col12" class="data row8 col12" >0.0270092</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col13" class="data row8 col13" >0.0836449</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col14" class="data row8 col14" >0.0115212</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col15" class="data row8 col15" >0.07408</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col16" class="data row8 col16" >0.0751278</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow8_col17" class="data row8 col17" >0.057244</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row8" class="row_heading level0 row8" >PublisherCount</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col0" class="data row8 col0" >0.0318085</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col1" class="data row8 col1" >-0.00199187</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col2" class="data row8 col2" >0.164304</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col3" class="data row8 col3" >0.00847535</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col4" class="data row8 col4" >0.0690527</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col5" class="data row8 col5" >0.0503055</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col6" class="data row8 col6" >0.130975</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col7" class="data row8 col7" >0.0152406</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col8" class="data row8 col8" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col9" class="data row8 col9" >0.0466705</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col10" class="data row8 col10" >0.0349308</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col11" class="data row8 col11" >0.0901259</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col12" class="data row8 col12" >0.0270092</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col13" class="data row8 col13" >0.0836449</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col14" class="data row8 col14" >0.0115212</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col15" class="data row8 col15" >0.07408</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col16" class="data row8 col16" >0.0751278</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow8_col17" class="data row8 col17" >0.057244</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row9" class="row_heading level0 row9" >StoreScreenshotCount</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col0" class="data row9 col0" >0.0631031</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col1" class="data row9 col1" >0.055558</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col2" class="data row9 col2" >0.0060274</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col3" class="data row9 col3" >0.0373434</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col4" class="data row9 col4" >0.142422</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col5" class="data row9 col5" >0.285919</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col6" class="data row9 col6" >0.113072</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col7" class="data row9 col7" >0.057084</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col8" class="data row9 col8" >0.0466705</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col9" class="data row9 col9" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col10" class="data row9 col10" >0.0700225</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col11" class="data row9 col11" >0.15451</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col12" class="data row9 col12" >0.0638063</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col13" class="data row9 col13" >0.166514</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col14" class="data row9 col14" >0.159191</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col15" class="data row9 col15" >0.185851</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col16" class="data row9 col16" >0.191096</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow9_col17" class="data row9 col17" >0.0634748</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row9" class="row_heading level0 row9" >StoreScreenshotCount</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col0" class="data row9 col0" >0.0631031</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col1" class="data row9 col1" >0.055558</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col2" class="data row9 col2" >0.0060274</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col3" class="data row9 col3" >0.0373434</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col4" class="data row9 col4" >0.142422</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col5" class="data row9 col5" >0.285919</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col6" class="data row9 col6" >0.113072</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col7" class="data row9 col7" >0.057084</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col8" class="data row9 col8" >0.0466705</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col9" class="data row9 col9" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col10" class="data row9 col10" >0.0700225</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col11" class="data row9 col11" >0.15451</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col12" class="data row9 col12" >0.0638063</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col13" class="data row9 col13" >0.166514</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col14" class="data row9 col14" >0.159191</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col15" class="data row9 col15" >0.185851</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col16" class="data row9 col16" >0.191096</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow9_col17" class="data row9 col17" >0.0634748</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row10" class="row_heading level0 row10" >SteamSpyOwners</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col0" class="data row10 col0" >0.104553</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col1" class="data row10 col1" >0.0167288</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col2" class="data row10 col2" >0.0262638</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col3" class="data row10 col3" >0.0438705</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col4" class="data row10 col4" >0.188182</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col5" class="data row10 col5" >0.151459</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col6" class="data row10 col6" >0.0543458</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col7" class="data row10 col7" >0.647955</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col8" class="data row10 col8" >0.0349308</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col9" class="data row10 col9" >0.0700225</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col10" class="data row10 col10" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col11" class="data row10 col11" >0.712066</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col12" class="data row10 col12" >0.969035</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col13" class="data row10 col13" >0.73881</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col14" class="data row10 col14" >0.124242</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col15" class="data row10 col15" >0.0361957</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col16" class="data row10 col16" >0.0386648</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow10_col17" class="data row10 col17" >0.18362</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row10" class="row_heading level0 row10" >SteamSpyOwners</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col0" class="data row10 col0" >0.104553</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col1" class="data row10 col1" >0.0167288</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col2" class="data row10 col2" >0.0262638</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col3" class="data row10 col3" >0.0438705</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col4" class="data row10 col4" >0.188182</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col5" class="data row10 col5" >0.151459</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col6" class="data row10 col6" >0.0543458</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col7" class="data row10 col7" >0.647955</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col8" class="data row10 col8" >0.0349308</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col9" class="data row10 col9" >0.0700225</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col10" class="data row10 col10" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col11" class="data row10 col11" >0.712066</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col12" class="data row10 col12" >0.969035</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col13" class="data row10 col13" >0.73881</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col14" class="data row10 col14" >0.124242</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col15" class="data row10 col15" >0.0361957</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col16" class="data row10 col16" >0.0386648</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow10_col17" class="data row10 col17" >0.18362</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row11" class="row_heading level0 row11" >SteamSpyOwnersVariance</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col0" class="data row11 col0" >0.259496</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col1" class="data row11 col1" >0.0684636</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col2" class="data row11 col2" >0.0545363</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col3" class="data row11 col3" >0.106612</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col4" class="data row11 col4" >0.441112</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col5" class="data row11 col5" >0.22075</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col6" class="data row11 col6" >0.217898</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col7" class="data row11 col7" >0.441921</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col8" class="data row11 col8" >0.0901259</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col9" class="data row11 col9" >0.15451</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col10" class="data row11 col10" >0.712066</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col11" class="data row11 col11" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col12" class="data row11 col12" >0.599977</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col13" class="data row11 col13" >0.969693</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col14" class="data row11 col14" >0.209155</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col15" class="data row11 col15" >0.1395</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col16" class="data row11 col16" >0.137805</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow11_col17" class="data row11 col17" >0.283661</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row11" class="row_heading level0 row11" >SteamSpyOwnersVariance</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col0" class="data row11 col0" >0.259496</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col1" class="data row11 col1" >0.0684636</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col2" class="data row11 col2" >0.0545363</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col3" class="data row11 col3" >0.106612</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col4" class="data row11 col4" >0.441112</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col5" class="data row11 col5" >0.22075</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col6" class="data row11 col6" >0.217898</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col7" class="data row11 col7" >0.441921</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col8" class="data row11 col8" >0.0901259</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col9" class="data row11 col9" >0.15451</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col10" class="data row11 col10" >0.712066</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col11" class="data row11 col11" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col12" class="data row11 col12" >0.599977</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col13" class="data row11 col13" >0.969693</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col14" class="data row11 col14" >0.209155</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col15" class="data row11 col15" >0.1395</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col16" class="data row11 col16" >0.137805</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow11_col17" class="data row11 col17" >0.283661</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row12" class="row_heading level0 row12" >SteamSpyPlayersEstimate</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col0" class="data row12 col0" >0.0834184</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col1" class="data row12 col1" >0.0130372</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col2" class="data row12 col2" >0.0184623</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col3" class="data row12 col3" >0.0407361</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col4" class="data row12 col4" >0.155461</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col5" class="data row12 col5" >0.151787</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col6" class="data row12 col6" >0.046126</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col7" class="data row12 col7" >0.680281</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col8" class="data row12 col8" >0.0270092</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col9" class="data row12 col9" >0.0638063</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col10" class="data row12 col10" >0.969035</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col11" class="data row12 col11" >0.599977</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col12" class="data row12 col12" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col13" class="data row12 col13" >0.668426</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col14" class="data row12 col14" >0.120127</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col15" class="data row12 col15" >0.0387522</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col16" class="data row12 col16" >0.0425182</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow12_col17" class="data row12 col17" >0.168703</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row12" class="row_heading level0 row12" >SteamSpyPlayersEstimate</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col0" class="data row12 col0" >0.0834184</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col1" class="data row12 col1" >0.0130372</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col2" class="data row12 col2" >0.0184623</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col3" class="data row12 col3" >0.0407361</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col4" class="data row12 col4" >0.155461</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col5" class="data row12 col5" >0.151787</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col6" class="data row12 col6" >0.046126</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col7" class="data row12 col7" >0.680281</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col8" class="data row12 col8" >0.0270092</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col9" class="data row12 col9" >0.0638063</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col10" class="data row12 col10" >0.969035</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col11" class="data row12 col11" >0.599977</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col12" class="data row12 col12" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col13" class="data row12 col13" >0.668426</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col14" class="data row12 col14" >0.120127</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col15" class="data row12 col15" >0.0387522</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col16" class="data row12 col16" >0.0425182</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow12_col17" class="data row12 col17" >0.168703</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row13" class="row_heading level0 row13" >SteamSpyPlayersVariance</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col0" class="data row13 col0" >0.258656</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col1" class="data row13 col1" >0.0671586</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col2" class="data row13 col2" >0.0537144</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col3" class="data row13 col3" >0.121087</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col4" class="data row13 col4" >0.434385</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col5" class="data row13 col5" >0.257842</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col6" class="data row13 col6" >0.221053</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col7" class="data row13 col7" >0.510277</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col8" class="data row13 col8" >0.0836449</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col9" class="data row13 col9" >0.166514</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col10" class="data row13 col10" >0.73881</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col11" class="data row13 col11" >0.969693</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col12" class="data row13 col12" >0.668426</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col13" class="data row13 col13" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col14" class="data row13 col14" >0.233928</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col15" class="data row13 col15" >0.171786</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col16" class="data row13 col16" >0.176721</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow13_col17" class="data row13 col17" >0.302926</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row13" class="row_heading level0 row13" >SteamSpyPlayersVariance</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col0" class="data row13 col0" >0.258656</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col1" class="data row13 col1" >0.0671586</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col2" class="data row13 col2" >0.0537144</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col3" class="data row13 col3" >0.121087</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col4" class="data row13 col4" >0.434385</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col5" class="data row13 col5" >0.257842</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col6" class="data row13 col6" >0.221053</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col7" class="data row13 col7" >0.510277</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col8" class="data row13 col8" >0.0836449</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col9" class="data row13 col9" >0.166514</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col10" class="data row13 col10" >0.73881</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col11" class="data row13 col11" >0.969693</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col12" class="data row13 col12" >0.668426</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col13" class="data row13 col13" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col14" class="data row13 col14" >0.233928</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col15" class="data row13 col15" >0.171786</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col16" class="data row13 col16" >0.176721</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow13_col17" class="data row13 col17" >0.302926</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row14" class="row_heading level0 row14" >AchievementCount</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col0" class="data row14 col0" >0.0524574</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col1" class="data row14 col1" >0.0510354</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col2" class="data row14 col2" >0.0204087</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col3" class="data row14 col3" >0.152179</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col4" class="data row14 col4" >0.14417</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col5" class="data row14 col5" >0.1775</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col6" class="data row14 col6" >0.117824</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col7" class="data row14 col7" >0.118526</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col8" class="data row14 col8" >0.0115212</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col9" class="data row14 col9" >0.159191</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col10" class="data row14 col10" >0.124242</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col11" class="data row14 col11" >0.209155</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col12" class="data row14 col12" >0.120127</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col13" class="data row14 col13" >0.233928</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col14" class="data row14 col14" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col15" class="data row14 col15" >0.137757</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col16" class="data row14 col16" >0.139225</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow14_col17" class="data row14 col17" >0.133922</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row14" class="row_heading level0 row14" >AchievementCount</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col0" class="data row14 col0" >0.0524574</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col1" class="data row14 col1" >0.0510354</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col2" class="data row14 col2" >0.0204087</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col3" class="data row14 col3" >0.152179</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col4" class="data row14 col4" >0.14417</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col5" class="data row14 col5" >0.1775</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col6" class="data row14 col6" >0.117824</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col7" class="data row14 col7" >0.118526</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col8" class="data row14 col8" >0.0115212</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col9" class="data row14 col9" >0.159191</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col10" class="data row14 col10" >0.124242</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col11" class="data row14 col11" >0.209155</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col12" class="data row14 col12" >0.120127</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col13" class="data row14 col13" >0.233928</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col14" class="data row14 col14" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col15" class="data row14 col15" >0.137757</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col16" class="data row14 col16" >0.139225</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow14_col17" class="data row14 col17" >0.133922</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row15" class="row_heading level0 row15" >PriceInitial</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col0" class="data row15 col0" >0.164853</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col1" class="data row15 col1" >0.0610106</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col2" class="data row15 col2" >0.0380897</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col3" class="data row15 col3" >0.108797</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col4" class="data row15 col4" >0.27731</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col5" class="data row15 col5" >0.2325</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col6" class="data row15 col6" >0.346655</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col7" class="data row15 col7" >0.0523879</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col8" class="data row15 col8" >0.07408</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col9" class="data row15 col9" >0.185851</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col10" class="data row15 col10" >0.0361957</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col11" class="data row15 col11" >0.1395</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col12" class="data row15 col12" >0.0387522</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col13" class="data row15 col13" >0.171786</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col14" class="data row15 col14" >0.137757</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col15" class="data row15 col15" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col16" class="data row15 col16" >0.908645</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow15_col17" class="data row15 col17" >0.196251</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row15" class="row_heading level0 row15" >PriceInitial</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col0" class="data row15 col0" >0.164853</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col1" class="data row15 col1" >0.0610106</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col2" class="data row15 col2" >0.0380897</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col3" class="data row15 col3" >0.108797</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col4" class="data row15 col4" >0.27731</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col5" class="data row15 col5" >0.2325</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col6" class="data row15 col6" >0.346655</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col7" class="data row15 col7" >0.0523879</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col8" class="data row15 col8" >0.07408</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col9" class="data row15 col9" >0.185851</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col10" class="data row15 col10" >0.0361957</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col11" class="data row15 col11" >0.1395</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col12" class="data row15 col12" >0.0387522</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col13" class="data row15 col13" >0.171786</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col14" class="data row15 col14" >0.137757</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col15" class="data row15 col15" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col16" class="data row15 col16" >0.908645</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow15_col17" class="data row15 col17" >0.196251</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row16" class="row_heading level0 row16" >PriceFinal</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col0" class="data row16 col0" >0.184207</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col1" class="data row16 col1" >0.0520091</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col2" class="data row16 col2" >0.0364022</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col3" class="data row16 col3" >0.114377</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col4" class="data row16 col4" >0.283269</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col5" class="data row16 col5" >0.246149</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col6" class="data row16 col6" >0.335088</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col7" class="data row16 col7" >0.05821</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col8" class="data row16 col8" >0.0751278</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col9" class="data row16 col9" >0.191096</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col10" class="data row16 col10" >0.0386648</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col11" class="data row16 col11" >0.137805</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col12" class="data row16 col12" >0.0425182</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col13" class="data row16 col13" >0.176721</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col14" class="data row16 col14" >0.139225</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col15" class="data row16 col15" >0.908645</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col16" class="data row16 col16" >1</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow16_col17" class="data row16 col17" >0.20047</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row16" class="row_heading level0 row16" >PriceFinal</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col0" class="data row16 col0" >0.184207</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col1" class="data row16 col1" >0.0520091</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col2" class="data row16 col2" >0.0364022</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col3" class="data row16 col3" >0.114377</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col4" class="data row16 col4" >0.283269</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col5" class="data row16 col5" >0.246149</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col6" class="data row16 col6" >0.335088</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col7" class="data row16 col7" >0.05821</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col8" class="data row16 col8" >0.0751278</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col9" class="data row16 col9" >0.191096</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col10" class="data row16 col10" >0.0386648</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col11" class="data row16 col11" >0.137805</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col12" class="data row16 col12" >0.0425182</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col13" class="data row16 col13" >0.176721</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col14" class="data row16 col14" >0.139225</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col15" class="data row16 col15" >0.908645</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col16" class="data row16 col16" >1</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow16_col17" class="data row16 col17" >0.20047</td> 
     </tr>    <tr> 
-        <th id="T_c78d7672_1dc8_11e9_974c_f8633f500dbblevel0_row17" class="row_heading level0 row17" >LanguageCount</th> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col0" class="data row17 col0" >0.108778</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col1" class="data row17 col1" >0.0435695</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col2" class="data row17 col2" >0.0459097</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col3" class="data row17 col3" >0.0552424</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col4" class="data row17 col4" >0.235905</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col5" class="data row17 col5" >0.173557</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col6" class="data row17 col6" >0.149552</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col7" class="data row17 col7" >0.148389</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col8" class="data row17 col8" >0.057244</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col9" class="data row17 col9" >0.0634748</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col10" class="data row17 col10" >0.18362</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col11" class="data row17 col11" >0.283661</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col12" class="data row17 col12" >0.168703</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col13" class="data row17 col13" >0.302926</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col14" class="data row17 col14" >0.133922</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col15" class="data row17 col15" >0.196251</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col16" class="data row17 col16" >0.20047</td> 
-        <td id="T_c78d7672_1dc8_11e9_974c_f8633f500dbbrow17_col17" class="data row17 col17" >1</td> 
+        <th id="T_4abef218_1ece_11e9_974c_f8633f500dbblevel0_row17" class="row_heading level0 row17" >LanguageCount</th> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col0" class="data row17 col0" >0.108778</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col1" class="data row17 col1" >0.0435695</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col2" class="data row17 col2" >0.0459097</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col3" class="data row17 col3" >0.0552424</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col4" class="data row17 col4" >0.235905</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col5" class="data row17 col5" >0.173557</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col6" class="data row17 col6" >0.149552</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col7" class="data row17 col7" >0.148389</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col8" class="data row17 col8" >0.057244</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col9" class="data row17 col9" >0.0634748</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col10" class="data row17 col10" >0.18362</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col11" class="data row17 col11" >0.283661</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col12" class="data row17 col12" >0.168703</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col13" class="data row17 col13" >0.302926</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col14" class="data row17 col14" >0.133922</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col15" class="data row17 col15" >0.196251</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col16" class="data row17 col16" >0.20047</td> 
+        <td id="T_4abef218_1ece_11e9_974c_f8633f500dbbrow17_col17" class="data row17 col17" >1</td> 
     </tr></tbody> 
 </table> 
 </div>
@@ -20493,7 +20497,8 @@ Name: DLCCount, dtype: float64</pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this section, we will try to fit a model through our data to predict the Metacritic rating.</p>
+<p>From the data we have, one logical thing to predict is the number of owners. 
+In this section, we will scale our features and train a neural network for predicting the target variable, in our case 'SteamSpyOwners'. We can't use the 'SteamSpyOwnersVariance' feature due to its correlation with 'SteamSpyOwners'. We also shouldn't use 'SteamSpyPlayersEstimate' and 'SteamSpyPlayersVariance' for the same reason.</p>
 
 </div>
 </div>
@@ -20512,8 +20517,10 @@ Name: DLCCount, dtype: float64</pre>
 <div class="prompt input_prompt">In&nbsp;[112]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">LabelEncoder</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Encode True/False values into 1/0</span>
+<span class="c1"># from sklearn.preprocessing import LabelEncoder</span>
 <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+
 <span class="n">bool_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ControllerSupport&#39;</span><span class="p">,</span> <span class="s1">&#39;IsFree&#39;</span><span class="p">,</span> <span class="s1">&#39;IsPaid&#39;</span><span class="p">,</span> <span class="s1">&#39;SubscriptionOption&#39;</span><span class="p">,</span> <span class="s1">&#39;PlatformWindows&#39;</span><span class="p">,</span> <span class="s1">&#39;PlatformLinux&#39;</span><span class="p">,</span>\
                 <span class="s1">&#39;PlatformMac&#39;</span><span class="p">,</span> <span class="s1">&#39;CategorySinglePlayer&#39;</span><span class="p">,</span> <span class="s1">&#39;CategoryMultiplayer&#39;</span><span class="p">,</span> <span class="s1">&#39;CategoryCoop&#39;</span><span class="p">,</span> <span class="s1">&#39;CategoryMMO&#39;</span><span class="p">,</span>\
                 <span class="s1">&#39;CategoryInAppPurchase&#39;</span><span class="p">,</span> <span class="s1">&#39;CategoryIncludeSrcSDK&#39;</span><span class="p">,</span> <span class="s1">&#39;CategoryIncludeLevelEditor&#39;</span><span class="p">,</span> <span class="s1">&#39;CategoryVRSupport&#39;</span><span class="p">,</span>\
@@ -21171,7 +21178,8 @@ Name: DLCCount, dtype: float64</pre>
 <div class="prompt input_prompt">In&nbsp;[113]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t_0</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># use a numeric representation of dates</span>
+<span class="n">t_0</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ReleaseDate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">ReleaseDate</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">t_0</span><span class="p">)</span><span class="o">.</span><span class="n">days</span><span class="p">)</span>
 </pre></div>
 
@@ -21185,11 +21193,12 @@ Name: DLCCount, dtype: float64</pre>
 <div class="prompt input_prompt">In&nbsp;[114]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">MinMaxScaler</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># scale numeric values with min/max scaler (scales to range 0-1)</span>
+<span class="c1"># from sklearn.preprocessing import MinMaxScaler</span>
 <span class="n">minmax</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
 <span class="n">num_colums</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ReleaseDate&#39;</span><span class="p">,</span> <span class="s1">&#39;RequiredAge&#39;</span><span class="p">,</span> <span class="s1">&#39;DemoCount&#39;</span><span class="p">,</span> <span class="s1">&#39;DeveloperCount&#39;</span><span class="p">,</span> <span class="s1">&#39;DLCCount&#39;</span><span class="p">,</span> <span class="s1">&#39;Metacritic&#39;</span><span class="p">,</span>\
               <span class="s1">&#39;StoreVideoCount&#39;</span><span class="p">,</span> <span class="s1">&#39;BundleCount&#39;</span><span class="p">,</span> <span class="s1">&#39;RecommendationCount&#39;</span><span class="p">,</span> <span class="s1">&#39;PublisherCount&#39;</span><span class="p">,</span> <span class="s1">&#39;StoreScreenshotCount&#39;</span><span class="p">,</span>\
-              <span class="s1">&#39;SteamSpyOwners&#39;</span><span class="p">,</span> <span class="s1">&#39;SteamSpyOwnersVariance&#39;</span><span class="p">,</span> <span class="s1">&#39;SteamSpyPlayersEstimate&#39;</span><span class="p">,</span> <span class="s1">&#39;SteamSpyPlayersVariance&#39;</span><span class="p">,</span>\
+<span class="c1">#               &#39;SteamSpyOwners&#39;, &#39;SteamSpyOwnersVariance&#39;, &#39;SteamSpyPlayersEstimate&#39;, &#39;SteamSpyPlayersVariance&#39;,\</span>
               <span class="s1">&#39;AchievementCount&#39;</span><span class="p">,</span> <span class="s1">&#39;PriceInitial&#39;</span><span class="p">,</span> <span class="s1">&#39;PriceFinal&#39;</span><span class="p">,</span> <span class="s1">&#39;LanguageCount&#39;</span><span class="p">]</span>
 
 <span class="n">df</span><span class="p">[</span><span class="n">num_colums</span><span class="p">]</span> <span class="o">=</span> <span class="n">minmax</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">num_colums</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">))</span>
@@ -21297,10 +21306,10 @@ Name: DLCCount, dtype: float64</pre>
       <td>0.05</td>
       <td>0.25</td>
       <td>0.11</td>
-      <td>0.14</td>
-      <td>0.43</td>
-      <td>0.10</td>
-      <td>0.36</td>
+      <td>13033334</td>
+      <td>92789</td>
+      <td>9140731</td>
+      <td>78136</td>
       <td>0.00</td>
       <td>0</td>
       <td>0</td>
@@ -21351,10 +21360,10 @@ Name: DLCCount, dtype: float64</pre>
       <td>0.00</td>
       <td>0.25</td>
       <td>0.04</td>
-      <td>0.06</td>
-      <td>0.28</td>
-      <td>0.01</td>
-      <td>0.11</td>
+      <td>5399140</td>
+      <td>60368</td>
+      <td>753627</td>
+      <td>22699</td>
       <td>0.00</td>
       <td>0</td>
       <td>0</td>
@@ -21405,10 +21414,10 @@ Name: DLCCount, dtype: float64</pre>
       <td>0.00</td>
       <td>0.25</td>
       <td>0.04</td>
-      <td>0.08</td>
-      <td>0.33</td>
-      <td>0.02</td>
-      <td>0.16</td>
+      <td>7621102</td>
+      <td>71499</td>
+      <td>1709740</td>
+      <td>34145</td>
       <td>0.00</td>
       <td>0</td>
       <td>0</td>
@@ -21459,10 +21468,10 @@ Name: DLCCount, dtype: float64</pre>
       <td>0.00</td>
       <td>0.25</td>
       <td>0.04</td>
-      <td>0.08</td>
-      <td>0.33</td>
-      <td>0.01</td>
-      <td>0.11</td>
+      <td>7498965</td>
+      <td>70936</td>
+      <td>789676</td>
+      <td>23235</td>
       <td>0.00</td>
       <td>0</td>
       <td>0</td>
@@ -21513,10 +21522,10 @@ Name: DLCCount, dtype: float64</pre>
       <td>0.00</td>
       <td>0.25</td>
       <td>0.04</td>
-      <td>0.06</td>
-      <td>0.28</td>
-      <td>0.01</td>
-      <td>0.10</td>
+      <td>5399499</td>
+      <td>60370</td>
+      <td>705741</td>
+      <td>21968</td>
       <td>0.00</td>
       <td>0</td>
       <td>0</td>
@@ -21564,14 +21573,26 @@ Name: DLCCount, dtype: float64</pre>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Training-a-model">Training a model<a class="anchor-link" href="#Training-a-model">&#182;</a></h3><p>When the data is properly scaled and ready, we can create split the data for training and testing. Let's train our model on 70% of the data and test it on 30%.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[115]:</div>
+<div class="prompt input_prompt">In&nbsp;[121]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Metacritic</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Metacritic</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Metacritic</span>
-<span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span><span class="s1">&#39;Metacritic&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create targets and inputs</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1"># y = df[[&#39;SteamSpyOwners&#39;,&#39;SteamSpyOwnersVariance&#39;,&#39;SteamSpyPlayersEstimate&#39;,&#39;SteamSpyPlayersVariance&#39;]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">SteamSpyOwners</span>
+<span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span><span class="s1">&#39;SteamSpyOwners&#39;</span><span class="p">,</span><span class="s1">&#39;SteamSpyOwnersVariance&#39;</span><span class="p">,</span><span class="s1">&#39;SteamSpyPlayersEstimate&#39;</span><span class="p">,</span> \
+        <span class="s1">&#39;SteamSpyPlayersVariance&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -21581,60 +21602,12 @@ Name: DLCCount, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[116]:</div>
+<div class="prompt input_prompt">In&nbsp;[122]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LinearRegression</span>
-<span class="n">lreg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[117]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[117]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None,
-         normalize=False)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[118]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39; The estimated intercept coefficient is </span><span class="si">%.2f</span><span class="s1"> &#39;</span> <span class="o">%</span><span class="k">lreg</span>.intercept_)
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; The number of coefficients used was </span><span class="si">%d</span><span class="s1"> &#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">lreg</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split data into training and testing sets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -21651,8 +21624,7 @@ Name: DLCCount, dtype: float64</pre>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre> The estimated intercept coefficient is 0.73 
- The number of coefficients used was 49 
+<pre>(8297, 46) (3556, 46) (8297,) (3556,)
 </pre>
 </div>
 </div>
@@ -21661,16 +21633,108 @@ Name: DLCCount, dtype: float64</pre>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can now build and train our neural network.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[119]:</div>
+<div class="prompt input_prompt">In&nbsp;[176]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">coeff_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-<span class="n">coeff_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Features&#39;</span><span class="p">]</span>
-<span class="n">coeff_df</span><span class="p">[</span><span class="s2">&quot;Coefficient Estimate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">lreg</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
-<span class="n">coeff_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Coefficient Estimate&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">coeff_df</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># training networks with various parameters</span>
+<span class="n">hid_layer_cnts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">256</span><span class="p">]</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">256</span><span class="p">,</span><span class="mi">512</span><span class="p">,</span><span class="mi">1024</span><span class="p">]</span>
+<span class="n">batches</span> <span class="o">=</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">128</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[186]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">train_one_layer_models</span><span class="p">(</span><span class="n">hid_layer_cnts</span><span class="p">,</span><span class="n">epochs</span><span class="p">,</span><span class="n">batches</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function takes arrays of parameters for a one layer neural network and trains a neural network for every</span>
+<span class="sd">    combination of these parameters. Function creates a table (data frame) with RMSE on testing data </span>
+<span class="sd">    for every neural network.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;# of units per layer&#39;</span><span class="p">,</span> <span class="s1">&#39;# of epochs&#39;</span><span class="p">,</span> <span class="s1">&#39;Size of batches&#39;</span><span class="p">,</span> <span class="s1">&#39;RMSE&#39;</span><span class="p">]</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">table_cols</span><span class="p">)</span>
+    
+    <span class="c1"># model all combinations of parameters</span>
+    <span class="k">for</span> <span class="n">hid</span> <span class="ow">in</span> <span class="n">hid_layer_cnts</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">epochs</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">batches</span><span class="p">:</span>
+                <span class="c1"># create model</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+                    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+                    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">),</span>
+                    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">hid</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+                    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)</span>
+                <span class="p">])</span>
+
+                <span class="c1"># Compile model</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mean_squared_error&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Fit the model</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+                <span class="c1"># predict targets for testing data</span>
+                <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+                <span class="c1"># compute RMSE</span>
+                <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+                <span class="n">run</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span> \
+                        <span class="p">{</span><span class="s1">&#39;# of units per layer&#39;</span><span class="p">:</span><span class="n">hid</span><span class="p">,</span><span class="s1">&#39;# of epochs&#39;</span><span class="p">:</span><span class="n">e</span><span class="p">,</span><span class="s1">&#39;Size of batches&#39;</span><span class="p">:</span><span class="n">b</span><span class="p">,</span><span class="s1">&#39;RMSE&#39;</span><span class="p">:</span><span class="n">rmse</span><span class="p">}</span> \
+                      <span class="p">)</span>
+                <span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[178]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this will take a lot of time</span>
+
+<span class="c1"># start = dt.datetime.now()</span>
+<span class="c1"># table = train_one_layer_models(hid_layer_cnts,epochs,batches)</span>
+<span class="c1"># end = dt.datetime.now()</span>
+
+<span class="c1"># duration = end - start</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[233]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">duration</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> neural networks trained and it took </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="p">),</span><span class="n">pprint_duration</span><span class="p">(</span><span class="n">duration</span><span class="p">)))</span>
+<span class="n">table</span>
 </pre></div>
 
 </div>
@@ -21683,7 +21747,18 @@ Name: DLCCount, dtype: float64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[119]:</div>
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>160 neural networks trained and it took 10h 20m 52s.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[233]:</div>
 
 
 
@@ -21706,255 +21781,588 @@ Name: DLCCount, dtype: float64</pre>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Features</th>
-      <th>Coefficient Estimate</th>
+      <th># of units per layer</th>
+      <th># of epochs</th>
+      <th>Size of batches</th>
+      <th>RMSE</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>10</th>
-      <td>SteamSpyOwners</td>
-      <td>-3.68</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>RecommendationCount</td>
-      <td>-0.31</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>DLCCount</td>
-      <td>-0.17</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>AchievementCount</td>
-      <td>-0.15</td>
-    </tr>
-    <tr>
       <th>0</th>
-      <td>ReleaseDate</td>
-      <td>-0.11</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>StoreVideoCount</td>
-      <td>-0.06</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>StoreScreenshotCount</td>
-      <td>-0.06</td>
-    </tr>
-    <tr>
-      <th>47</th>
-      <td>LanguageCount</td>
-      <td>-0.04</td>
-    </tr>
-    <tr>
-      <th>38</th>
-      <td>GenreIsFreeToPlay</td>
-      <td>-0.04</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>GenreIsSimulation</td>
-      <td>-0.03</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>GenreIsAction</td>
-      <td>-0.03</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>CategoryCoop</td>
-      <td>-0.02</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>DemoCount</td>
-      <td>-0.02</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>CategoryVRSupport</td>
-      <td>-0.02</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>IsFree</td>
-      <td>-0.01</td>
+      <td>16.00</td>
+      <td>16.00</td>
+      <td>16.00</td>
+      <td>585,958.34</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>RequiredAge</td>
-      <td>-0.01</td>
+      <td>16.00</td>
+      <td>16.00</td>
+      <td>32.00</td>
+      <td>588,197.58</td>
     </tr>
     <tr>
-      <th>34</th>
-      <td>GenreIsStrategy</td>
-      <td>-0.01</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>IsPaid</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>GenreIsAdventure</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>GenreIsIndie</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>PublisherCount</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>45</th>
-      <td>Background</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>48</th>
-      <td>SupportsEnglish</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>44</th>
-      <td>AboutText</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>PlatformWindows</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>40</th>
-      <td>GenreIsRacing</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>46</th>
-      <td>ShortDescrip</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>ControllerSupport</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>CategoryMultiplayer</td>
-      <td>0.01</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>PlatformLinux</td>
-      <td>0.01</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>CategoryMMO</td>
-      <td>0.01</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>GenreIsRPG</td>
-      <td>0.01</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>GenreIsCasual</td>
-      <td>0.01</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>CategoryIncludeLevelEditor</td>
-      <td>0.01</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>PlatformMac</td>
-      <td>0.02</td>
-    </tr>
-    <tr>
-      <th>42</th>
-      <td>PriceInitial</td>
-      <td>0.02</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>GenreIsSports</td>
-      <td>0.03</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>CategoryIncludeSrcSDK</td>
-      <td>0.03</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>CategorySinglePlayer</td>
-      <td>0.03</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>SubscriptionOption</td>
-      <td>0.05</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>BundleCount</td>
-      <td>0.05</td>
-    </tr>
-    <tr>
-      <th>41</th>
-      <td>GenreIsMassivelyMultiplayer</td>
-      <td>0.06</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>CategoryInAppPurchase</td>
-      <td>0.07</td>
+      <th>2</th>
+      <td>16.00</td>
+      <td>16.00</td>
+      <td>64.00</td>
+      <td>598,831.42</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>DeveloperCount</td>
-      <td>0.09</td>
+      <td>16.00</td>
+      <td>16.00</td>
+      <td>128.00</td>
+      <td>602,047.62</td>
     </tr>
     <tr>
-      <th>37</th>
-      <td>GenreIsEarlyAccess</td>
-      <td>0.10</td>
+      <th>4</th>
+      <td>16.00</td>
+      <td>32.00</td>
+      <td>16.00</td>
+      <td>567,687.11</td>
     </tr>
     <tr>
-      <th>43</th>
-      <td>PriceFinal</td>
-      <td>0.32</td>
+      <th>5</th>
+      <td>16.00</td>
+      <td>32.00</td>
+      <td>32.00</td>
+      <td>575,085.04</td>
     </tr>
     <tr>
-      <th>13</th>
-      <td>SteamSpyPlayersVariance</td>
-      <td>0.46</td>
+      <th>6</th>
+      <td>16.00</td>
+      <td>32.00</td>
+      <td>64.00</td>
+      <td>584,757.29</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>16.00</td>
+      <td>32.00</td>
+      <td>128.00</td>
+      <td>588,229.70</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>16.00</td>
+      <td>64.00</td>
+      <td>16.00</td>
+      <td>527,389.36</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>16.00</td>
+      <td>64.00</td>
+      <td>32.00</td>
+      <td>553,445.46</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>16.00</td>
+      <td>64.00</td>
+      <td>64.00</td>
+      <td>566,759.65</td>
     </tr>
     <tr>
       <th>11</th>
-      <td>SteamSpyOwnersVariance</td>
-      <td>0.74</td>
+      <td>16.00</td>
+      <td>64.00</td>
+      <td>128.00</td>
+      <td>581,297.72</td>
     </tr>
     <tr>
       <th>12</th>
-      <td>SteamSpyPlayersEstimate</td>
-      <td>2.84</td>
+      <td>16.00</td>
+      <td>128.00</td>
+      <td>16.00</td>
+      <td>502,689.35</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>16.00</td>
+      <td>128.00</td>
+      <td>32.00</td>
+      <td>513,884.34</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>16.00</td>
+      <td>128.00</td>
+      <td>64.00</td>
+      <td>539,173.17</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>16.00</td>
+      <td>128.00</td>
+      <td>128.00</td>
+      <td>546,302.64</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>16.00</td>
+      <td>200.00</td>
+      <td>16.00</td>
+      <td>492,884.25</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>16.00</td>
+      <td>200.00</td>
+      <td>32.00</td>
+      <td>498,613.94</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>16.00</td>
+      <td>200.00</td>
+      <td>64.00</td>
+      <td>513,363.97</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>16.00</td>
+      <td>200.00</td>
+      <td>128.00</td>
+      <td>527,040.42</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>16.00</td>
+      <td>256.00</td>
+      <td>16.00</td>
+      <td>498,660.64</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>16.00</td>
+      <td>256.00</td>
+      <td>32.00</td>
+      <td>513,299.37</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>16.00</td>
+      <td>256.00</td>
+      <td>64.00</td>
+      <td>506,625.72</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>16.00</td>
+      <td>256.00</td>
+      <td>128.00</td>
+      <td>519,785.80</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>16.00</td>
+      <td>512.00</td>
+      <td>16.00</td>
+      <td>520,943.19</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>16.00</td>
+      <td>512.00</td>
+      <td>32.00</td>
+      <td>528,665.84</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>16.00</td>
+      <td>512.00</td>
+      <td>64.00</td>
+      <td>511,943.36</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>16.00</td>
+      <td>512.00</td>
+      <td>128.00</td>
+      <td>500,536.33</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>16.00</td>
+      <td>1,024.00</td>
+      <td>16.00</td>
+      <td>546,155.23</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>16.00</td>
+      <td>1,024.00</td>
+      <td>32.00</td>
+      <td>574,708.05</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>130</th>
+      <td>256.00</td>
+      <td>16.00</td>
+      <td>64.00</td>
+      <td>581,423.50</td>
+    </tr>
+    <tr>
+      <th>131</th>
+      <td>256.00</td>
+      <td>16.00</td>
+      <td>128.00</td>
+      <td>585,910.35</td>
+    </tr>
+    <tr>
+      <th>132</th>
+      <td>256.00</td>
+      <td>32.00</td>
+      <td>16.00</td>
+      <td>524,911.85</td>
+    </tr>
+    <tr>
+      <th>133</th>
+      <td>256.00</td>
+      <td>32.00</td>
+      <td>32.00</td>
+      <td>537,463.25</td>
+    </tr>
+    <tr>
+      <th>134</th>
+      <td>256.00</td>
+      <td>32.00</td>
+      <td>64.00</td>
+      <td>556,314.41</td>
+    </tr>
+    <tr>
+      <th>135</th>
+      <td>256.00</td>
+      <td>32.00</td>
+      <td>128.00</td>
+      <td>575,350.16</td>
+    </tr>
+    <tr>
+      <th>136</th>
+      <td>256.00</td>
+      <td>64.00</td>
+      <td>16.00</td>
+      <td>509,132.29</td>
+    </tr>
+    <tr>
+      <th>137</th>
+      <td>256.00</td>
+      <td>64.00</td>
+      <td>32.00</td>
+      <td>513,533.58</td>
+    </tr>
+    <tr>
+      <th>138</th>
+      <td>256.00</td>
+      <td>64.00</td>
+      <td>64.00</td>
+      <td>523,444.65</td>
+    </tr>
+    <tr>
+      <th>139</th>
+      <td>256.00</td>
+      <td>64.00</td>
+      <td>128.00</td>
+      <td>539,048.43</td>
+    </tr>
+    <tr>
+      <th>140</th>
+      <td>256.00</td>
+      <td>128.00</td>
+      <td>16.00</td>
+      <td>517,025.50</td>
+    </tr>
+    <tr>
+      <th>141</th>
+      <td>256.00</td>
+      <td>128.00</td>
+      <td>32.00</td>
+      <td>515,759.13</td>
+    </tr>
+    <tr>
+      <th>142</th>
+      <td>256.00</td>
+      <td>128.00</td>
+      <td>64.00</td>
+      <td>509,391.16</td>
+    </tr>
+    <tr>
+      <th>143</th>
+      <td>256.00</td>
+      <td>128.00</td>
+      <td>128.00</td>
+      <td>512,350.30</td>
+    </tr>
+    <tr>
+      <th>144</th>
+      <td>256.00</td>
+      <td>200.00</td>
+      <td>16.00</td>
+      <td>527,601.41</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>256.00</td>
+      <td>200.00</td>
+      <td>32.00</td>
+      <td>527,833.96</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>256.00</td>
+      <td>200.00</td>
+      <td>64.00</td>
+      <td>517,928.09</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>256.00</td>
+      <td>200.00</td>
+      <td>128.00</td>
+      <td>510,814.64</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>256.00</td>
+      <td>256.00</td>
+      <td>16.00</td>
+      <td>526,632.28</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>256.00</td>
+      <td>256.00</td>
+      <td>32.00</td>
+      <td>529,209.13</td>
+    </tr>
+    <tr>
+      <th>150</th>
+      <td>256.00</td>
+      <td>256.00</td>
+      <td>64.00</td>
+      <td>522,379.63</td>
+    </tr>
+    <tr>
+      <th>151</th>
+      <td>256.00</td>
+      <td>256.00</td>
+      <td>128.00</td>
+      <td>522,959.26</td>
+    </tr>
+    <tr>
+      <th>152</th>
+      <td>256.00</td>
+      <td>512.00</td>
+      <td>16.00</td>
+      <td>512,244.53</td>
+    </tr>
+    <tr>
+      <th>153</th>
+      <td>256.00</td>
+      <td>512.00</td>
+      <td>32.00</td>
+      <td>515,820.59</td>
+    </tr>
+    <tr>
+      <th>154</th>
+      <td>256.00</td>
+      <td>512.00</td>
+      <td>64.00</td>
+      <td>530,996.95</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>256.00</td>
+      <td>512.00</td>
+      <td>128.00</td>
+      <td>535,322.02</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>256.00</td>
+      <td>1,024.00</td>
+      <td>16.00</td>
+      <td>478,040.62</td>
+    </tr>
+    <tr>
+      <th>157</th>
+      <td>256.00</td>
+      <td>1,024.00</td>
+      <td>32.00</td>
+      <td>503,692.93</td>
+    </tr>
+    <tr>
+      <th>158</th>
+      <td>256.00</td>
+      <td>1,024.00</td>
+      <td>64.00</td>
+      <td>520,017.97</td>
+    </tr>
+    <tr>
+      <th>159</th>
+      <td>256.00</td>
+      <td>1,024.00</td>
+      <td>128.00</td>
+      <td>530,381.34</td>
+    </tr>
+  </tbody>
+</table>
+<p>160 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's now pick four of these (inclooding the best two) for one more training and their comparison.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[239]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">table_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;# of units per layer&#39;</span><span class="p">,</span> <span class="s1">&#39;# of epochs&#39;</span><span class="p">,</span> <span class="s1">&#39;Size of batches&#39;</span><span class="p">,</span> <span class="s1">&#39;Training time&#39;</span><span class="p">,</span> <span class="s1">&#39;RMSE&#39;</span><span class="p">]</span>
+<span class="n">table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">table_cols</span><span class="p">)</span>
+
+<span class="n">param_sets</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">256</span><span class="p">,</span><span class="mi">1024</span><span class="p">,</span><span class="mi">16</span><span class="p">],[</span><span class="mi">16</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">16</span><span class="p">],[</span><span class="mi">16</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">16</span><span class="p">],[</span><span class="mi">16</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">64</span><span class="p">]]</span>
+<span class="c1"># create and train a model for each parameter set</span>
+<span class="k">for</span> <span class="n">ps</span> <span class="ow">in</span> <span class="n">param_sets</span><span class="p">:</span>
+    <span class="c1"># create model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+        <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+        <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">),</span>
+        <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+        <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)</span>
+    <span class="p">])</span>
+
+    <span class="c1"># Compile model</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mean_squared_error&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Fit the model</span>
+    <span class="n">train_start</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">train_end</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">train_duration</span> <span class="o">=</span> <span class="n">train_end</span> <span class="o">-</span> <span class="n">train_start</span>
+    
+    <span class="c1"># predict targets for testing data</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+    <span class="c1"># compute RMSE</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+    <span class="n">run</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span> \
+            <span class="p">{</span><span class="s1">&#39;# of units per layer&#39;</span><span class="p">:</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;# of epochs&#39;</span><span class="p">:</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;Size of batches&#39;</span><span class="p">:</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> \
+             <span class="s1">&#39;Training time&#39;</span><span class="p">:</span> <span class="n">pprint_duration</span><span class="p">(</span><span class="n">train_duration</span><span class="p">),</span><span class="s1">&#39;RMSE&#39;</span><span class="p">:</span><span class="n">rmse</span><span class="p">}</span> \
+          <span class="p">)</span>
+    <span class="n">table2</span> <span class="o">=</span> <span class="n">table2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[240]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># results:</span>
+<span class="n">table2</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[240]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th># of units per layer</th>
+      <th># of epochs</th>
+      <th>Size of batches</th>
+      <th>Training time</th>
+      <th>RMSE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>256</td>
+      <td>1024</td>
+      <td>16</td>
+      <td>42m 59s</td>
+      <td>488,571.87</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>16</td>
+      <td>200</td>
+      <td>16</td>
+      <td>8m 36s</td>
+      <td>509,562.94</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>16</td>
+      <td>128</td>
+      <td>16</td>
+      <td>5m 46s</td>
+      <td>507,925.19</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>16</td>
+      <td>32</td>
+      <td>64</td>
+      <td>0m 59s</td>
+      <td>584,789.25</td>
     </tr>
   </tbody>
 </table>
@@ -21967,122 +22375,11 @@ Name: DLCCount, dtype: float64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[120]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_new</span> <span class="o">=</span> <span class="n">X</span><span class="p">[[</span><span class="s1">&#39;SteamSpyPlayersEstimate&#39;</span><span class="p">,</span><span class="s1">&#39;SteamSpyOwners&#39;</span><span class="p">,</span><span class="s1">&#39;SteamSpyPlayersVariance&#39;</span><span class="p">,</span><span class="s1">&#39;RecommendationCount&#39;</span><span class="p">,</span>\
-          <span class="s1">&#39;PriceFinal&#39;</span><span class="p">,</span><span class="s1">&#39;SteamSpyOwnersVariance&#39;</span><span class="p">,</span> <span class="s1">&#39;DLCCount&#39;</span><span class="p">]]</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(1309, 7) (873, 7) (1309,) (873,)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[121]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lreg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">lreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">Y_train</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[121]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None,
-         normalize=False)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[122]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pred_test</span> <span class="o">=</span> <span class="n">lreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The RMSE is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">Y_test</span> <span class="o">-</span> <span class="n">pred_test</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The R^2 is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lreg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">)))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The RMSE is 0.12561337060099287
-The R^2 is -0.20779983700557736
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Analysis-results">Analysis results<a class="anchor-link" href="#Analysis-results">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h3><p>The data has supported our hypotheses, however, we weren't able to train a model for rating prediction. Though, it should not be a surprise, because none of our attributes that we have in this data should directly affect the rating on metacritic.com. We were able to show this fact.</p>
+<p>We were able to get similar results for each of these parameter sets and we can see that the best performance was achieved with the first set of parameters.</p>
 
 </div>
 </div>
@@ -22091,11 +22388,16 @@ The R^2 is -0.20779983700557736
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Space-for-Improvements">Space for Improvements<a class="anchor-link" href="#Space-for-Improvements">&#182;</a></h3><ul>
-<li>There are a lot of TODOs</li>
-<li>It would be better to try to predict the number of game owners</li>
-<li>There might be more interesting correlations in separate Genre samples</li>
-</ul>
+<h2 id="Analysis-of-results">Analysis of results<a class="anchor-link" href="#Analysis-of-results">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h3><p>The data has supported our initial hypotheses. We were also able to train a neural network for predicting the number of game owners from all the features in the dataset. The target values have vary big differences what results in a slightly higher errors. Keeping in mind the distribution of our target values, the performance of the networks weren't that bad.</p>
+<p>This problem could be solved by having a lot more data to train on.</p>
 
 </div>
 </div>
